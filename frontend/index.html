@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SkyElevator Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <h2>SkyElevator Login Tracker</h2>
+
+  <div id="loginForm">
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="loginUser()">Login</button>
+  </div>
+
+  <div id="controls" style="display: none;">
+    <button onclick="sendLocation('login')">Save Login Location</button>
+    <button onclick="sendLocation('logout')">Save Logout Location</button>
+    <button onclick="showLocations()">Show Locations</button>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
+
