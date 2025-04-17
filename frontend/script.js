@@ -16,13 +16,20 @@ function loginUser() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password })
   })
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error('Invalid credentials');
+      return res.json();
+    })
     .then(data => {
       currentUserId = data.userId;
       currentUsername = data.username;
       document.getElementById('loginForm').style.display = 'none';
       document.getElementById('controls').style.display = 'block';
       document.getElementById('welcomeUser').innerText = `Welcome, ${currentUsername}!`;
+      document.getElementById('errorMsg').innerText = '';
+    })
+    .catch(err => {
+      document.getElementById('errorMsg').innerText = err.message;
     });
 }
 
@@ -47,6 +54,7 @@ function sendLocation(type) {
     alert(`${type} location saved with address: ${address}`);
   });
 }
+
 
 async function showLocations() {
   const res = await fetch('http://localhost:5000/api/location');

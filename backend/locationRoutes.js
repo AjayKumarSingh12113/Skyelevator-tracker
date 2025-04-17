@@ -4,10 +4,9 @@ const { User, Location } = require('./db');
 
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
-  let user = await User.findOne({ username });
+  const user = await User.findOne({ username, password });
   if (!user) {
-    user = new User({ username, password });
-    await user.save();
+    return res.status(401).json({ message: 'Invalid username or password' });
   }
   res.json({ message: 'User logged in', userId: user._id, username: user.username });
 });
@@ -24,4 +23,3 @@ router.get('/', async (req, res) => {
 });
 
 module.exports = router;
-
